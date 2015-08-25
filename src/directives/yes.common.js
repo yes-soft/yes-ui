@@ -160,10 +160,10 @@ angular.module('yes.ui')
             }
         };
     })
-    .directive('searchCommon', function (plugins) {
+    .directive('searchCommon', function (settings) {
         return {
             restrict: 'EA',
-            templateUrl: plugins.templates.searchCommon,
+            templateUrl: settings.templates.searchCommon,
             replace: true,
             scope: {
                 filtersConf: "=",

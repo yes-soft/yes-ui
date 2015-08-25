@@ -1,8 +1,11 @@
-angular.module('yes.ui')
+angular.module('yes.ui.list', ['ui.grid', ''])
     .directive('yesList', function ($timeout) {
         return {
-            restrict: 'A',
+            restrict: 'EA',
+            template: '',
             link: function (scope, element, attr) {
+
+
             }
         }
     });
