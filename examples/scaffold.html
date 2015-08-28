@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="builderExample">
+<head>
+    <meta charset="utf-8">
+    <title>Builder example</title>
+</head>
+<body>
+
+<div tree-view></div>
+
+<script src="../components/yes-bundle/dist/yes.bundle.js" charset="utf-8"></script>
+<script src="../dist/yes.ui.dependencies.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+    angular.module('builderExample', ['schemaForm'])
+            .run(function ($templateCache) {
+                // A template to use
+                console.log($templateCache);
+                $templateCache.put('scaffold-template.html', '<h1>scaffold {{world}}</h1>');
+            })
+            .directive('treeView', function ($compile, sfBuilder) {
+                return {
+                    restrict: 'EA',
+                  //templateUrl: 'scaffold-template.html',
+                    link: function (scope, element, attrs) {
+                        scope.world = 'World';
+
+                        var formDef = [
+                            {type: 'example'}
+                        ];
+                        var decorator = {
+                            example: {template: 'scaffold-template.html', replace: true, builder: []}
+                        };
+                        var documentFragment = sfBuilder.build(formDef, decorator);
+                        element[0].appendChild(documentFragment);
+                        $compile(element.children())(scope);
+                    }
+                };
+            });
+
+</script>
+</body>
+</html>
