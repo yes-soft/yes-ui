@@ -1,2 +1,2 @@
 'use strict';
-angular.module('yes.ui', []);
+angular.module('yes.ui', ['schemaForm']);
