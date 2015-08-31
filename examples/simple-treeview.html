@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Builder example</title>
+    <link rel="stylesheet" href="../components/yes-bundle/dist/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../components/yes-bundle/dist/vendor/bootstrap/css/bootstrap-theme.min.css">
+
+    <style>
+        .clickable {
+            cursor: pointer;
+        }
+
+        ul, li {
+            list-style-type: none;
+        }
+
+        .current {
+            border: 1px solid #ccc;
+        }
+
+    </style>
+</head>
+<body ng-app="app">
+
+<div class="container" style="padding-top: 50px;">
+    <div ng-controller="demo">
+        <div class="row">
+            <div class="col-xs-3">
+                <div ng-repeat="role in roles" ng-class="{'current':role == currentRole}" class="clickable"
+                     ng-click="action.selectRole(role)">
+                    {{role.name}}
+                </div>
+            </div>
+            <div class="col-xs-9">
+                <div>
+                    <label> 角色权限:
+                        <select>
+                            <option>请选择角色</option>
+                            <option ng-repeat="role in roles" value="{{role.uid}}">{{role.name}}</option>
+                        </select></label>
+                    <button ng-click="action.copyAuthority()">复制权限</button>
+
+                    <label> 当前角色:[ {{currentRole.name}} ]</label>
+
+                    <button ng-click="action.save()">保存</button>
+                </div>
+                <div yes-tree-view="menus"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../components/yes-bundle/dist/yes.bundle.min.js" charset="utf-8"></script>
+<script src="../components/yes-utils/dist/yes.utils.js" charset="utf-8"></script>
+<script src="../dist/yes.ui.dependencies.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+
+    angular.module('app', ['yes.utils'])
+            .run(function ($templateCache) {
+            })
+            .directive('yesTreeView', function ($compile, $templateCache, $http) {
+                return {
+                    link: function (scope, element, attrs) {
+                        $http.get("./../src/templates/tree-view.html", {cache: $templateCache})
+                                .success(function (html) {
+                                    element.html('').append($compile(html)(scope));
+                                });
+                    }
+                };
+            })
+            .controller('demo', function ($http, $scope, $timeout, utils) {
+
+                var self = $scope;
+
+                $http.get('data/menus.json').success(function (data) {
+                    var menus = utils.menus.initMenus(null, data.body.items);
+                    self.node = {"subMenus": menus};
+                });
+
+                $http.get('data/roles.json').success(function (data) {
+                    self.roles = data.body.items;
+                });
+
+                self.action = {
+                    selectRole: function (role) {
+                        self.currentRole = role;
+                    },
+                    copyAuthority: function () {
+
+                    },
+                    save: function () {
+
+                    }
+                }
+
+
+            })
+</script>
+</body>
+</html>

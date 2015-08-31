@@ -1,0 +1,12 @@
+<ul>
+    <li ng-repeat="node in ::node.subMenus">
+        <label> <input type="checkbox"/> {{::node.name}} </label>
+        <i ng-click="node.expanded=!node.expanded"
+           ng-if="node.subMenus.length"
+           class="glyphicon glyphicon-chevron-right clickable"
+                ng-class="{'glyphicon-chevron-down':node.expanded}"></i>
+
+        <div ng-show="node.expanded" yes-tree-view="node.subMenus">
+        </div>
+    </li>
+</ul>
