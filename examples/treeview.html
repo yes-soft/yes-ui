@@ -8,39 +8,76 @@
 </head>
 <body ng-app="app">
 
-<div tree-view></div>
+<div ng-controller="demo">
+    <div tree-view></div>
+</div>
 
-<script src="../components/yes-bundle/dist/yes.bundle.js" charset="utf-8"></script>
+<script src="../components/yes-bundle/dist/yes.bundle.min.js" charset="utf-8"></script>
+<script src="../components/yes-utils/dist/yes.utils.js" charset="utf-8"></script>
 <script src="../dist/yes.ui.dependencies.js" charset="utf-8"></script>
 
 <script type="text/javascript">
 
 
-    angular.module('app', ['schemaForm'])
+    angular.module('app', ['yes.utils'])
             .run(function ($templateCache) {
-                // $templateCache.put('demo.html', '<h1>scaffold {{world}}</h1>');
+                // $templateCache.put('./../src/templates/tree-node.html', '<h1>scaffold {{world}}</h1>');
             })
-            .directive('treeView', function ($compile, sfBuilder) {
+            .directive('treeView', function ($compile, $templateRequest, $http, utils) {
                 return {
                     link: function (scope, element, attrs) {
-                        scope.world = 'World';
 
-                        var formDef = [
-                            {type: 'example'}
-                        ];
+                        $templateRequest("./../src/templates/tree-node.html").then(function (html) {
+                            var render = function (source) {
+                                console.log('start render ...');
+                                walk(source);
+                                element[0].appendChild(wrap);
+                                $compile(element.children())(scope);
+                            };
+                            scope.$watch('menus', function (source) {
+                                if (source) {
+                                    render(source);
+                                }
+                            });
 
-                        var decorator = {
-                            example: {template: 'demo.html', replace: true, builder: []}
-                        };
+                            var template = element.html(html);
+                            console.log(template);
 
-                        var documentFragment = sfBuilder.build(formDef, decorator);
+                            var wrap = document.createDocumentFragment();
+                            var depth = 0;
+                            var walk = function (tree) {
+                                angular.forEach(tree, function (node) {
+                                    var div = document.createElement("div");
+//                                    var name = '-----------------------'.substring(0, depth * 4) + node.name + node.type;
+//                                    var txt = document.createTextNode(name);
+                                    var current = depth;
+                                    // div.appendChild(txt);
+                                     // wrap.appendChild(angular.copy(template[0]));
 
-                        element[0].appendChild(documentFragment);
+                                    div.innerHTML = html;
 
-                        $compile(element.children())(scope);
+                                    while (div.childNodes.length > 0) {
+                                        wrap.appendChild(div.childNodes[0]);
+                                        console.log(div.childNodes.length);
+                                    }
+
+                                    if (node.subMenus) {
+                                        depth++;
+                                        walk(node.subMenus);
+                                    }
+                                    depth = current;
+                                });
+                            };
+                            $compile(element.children())(scope);
+                        });
                     }
                 };
-            });
+            })
+            .controller('demo', function ($http, $scope, utils) {
+                $http.get('data/menus.json').success(function (data) {
+                    $scope.menus = utils.menus.initMenus(null, data.body.items);
+                });
+            })
 
 </script>
 </body>

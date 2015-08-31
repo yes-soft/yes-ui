@@ -20,6 +20,7 @@
     "tests"
   ],
   "devDependencies": {
-    "yes-bundle": "*"
+    "yes-bundle": "*",
+    "yes-utils": "*"
   }
 }
