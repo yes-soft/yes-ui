@@ -1,6 +1,6 @@
 <ul>
     <li ng-repeat="node in ::node.subMenus">
-        <label> <input type="checkbox"/> {{::node.name}} </label>
+        <label class="clickable"> <input type="checkbox" ng-model="node.selected"/> {{::node.name}} </label>
         <i ng-click="node.expanded=!node.expanded"
            ng-if="node.subMenus.length"
            class="glyphicon glyphicon-chevron-right clickable"

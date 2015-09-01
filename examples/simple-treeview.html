@@ -27,6 +27,7 @@
     <div ng-controller="demo">
         <div class="row">
             <div class="col-xs-3">
+                <div>角色列表</div>
                 <div ng-repeat="role in roles" ng-class="{'current':role == currentRole}" class="clickable"
                      ng-click="action.selectRole(role)">
                     {{role.name}}
