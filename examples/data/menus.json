@@ -400,8 +400,34 @@
         "blank": false,
         "expanded": true,
         "order": 200
+      },
+      {
+        "uid": "document",
+        "name": "公文",
+        "tip": "公文",
+        "color": "btn-success",
+        "tag": "document",
+        "icon": "ion-ios-briefcase",
+        "order": 10,
+        "url": "#",
+        "state": "True",
+        "isdefault": "True",
+        "type": "Menu"
+      },
+      {
+        "uid": "document_mypending",
+        "name": "待办公文",
+        "tip": "待办公文",
+        "color": "btn-purple",
+        "tag": "mypending",
+        "icon": "ion-bookmark",
+        "order": 104,
+        "url": "#/document/mypending",
+        "state": "True",
+        "parent": "document",
+        "isdefault": "False",
+        "type": "Menu"
       }
-    ,{"uid":"document","name":"公文","tip":"公文","color":"btn-success","tag":"document","icon":"ion-ios-briefcase","order":10,"url":"#","state":"True","isdefault":"True","type":"Menu"},{"uid":"document_mypending","name":"待办公文","tip":"待办公文","color":"btn-purple","tag":"mypending","icon":"ion-bookmark","order":104,"url":"#/document/mypending","state":"True","parent":"document","isdefault":"False","type":"Menu"}
     ],
     "count": 142,
     "headers": {
