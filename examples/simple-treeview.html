@@ -63,8 +63,13 @@
             .directive('yesTreeView', function ($compile, $templateCache, $http) {
                 return {
                     link: function (scope, element, attrs) {
-                        $http.get("./../src/templates/tree-view.html", {cache: $templateCache})
+                        $http.get("plugins/base/templates/tree-view.html", {cache: $templateCache})
                                 .success(function (html) {
+
+                                    scope.selectNode = scope.selectNode || function (node) {
+                                                node.collapsed = !node.collapsed;
+                                            };
+
                                     element.html('').append($compile(html)(scope));
                                 });
                     }
