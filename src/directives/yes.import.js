@@ -1,18 +1,20 @@
 (function () {
     'use strict';
     angular.module('yes.ui')
-        .directive('uploaderContainer', ['$location', 'utils', 'settings',
-            function ($location, utils, settings) {
+        .directive('importUploader', ['$location', 'utils', 'settings', 'FileUploader',
+            function ($location, utils, settings, FileUploader) {
                 return {
                     restrict: 'EA',
-                    templateUrl: settings.templates.uploader, //'base/templates/uploader-container.html',
+                    templateUrl: settings.templates.import,
                     replace: true,
                     scope: {
                         options: "="
                     },
                     controller: ['$scope', '$attrs', '$element',
                         function ($scope, $attrs, $element) {
-                            var options = $scope.options;
+                            var options = $scope.options || {};
+
+                            $scope.title = options.title;
 
                             var url = options.url || "/upload";
                             url = utils.getAbsUrl(url);
@@ -21,16 +23,20 @@
                                 url: url
                             });
 
+
                             uploader.filters.push({
                                 name: 'customFilter',
-                                fn: function (item /*{File|FileLikeObject}*/, options) {
+                                fn: function (item, options) {
                                     return this.queue.length < 10;
                                 }
                             });
 
-                            if (angular.isFunction(options.resolve)) {
-                                options.resolve.apply(uploader);
-                            }
+                            uploader.onSuccessItem = function (item, res, status, headers) {
+                                $scope.message = res.message;
+                                if (angular.isFunction(options.resolve)) {
+                                    options.resolve.apply();
+                                }
+                            };
                         }]
                 };
             }]);
