@@ -1,5 +1,5 @@
 angular.module('yes.ui')
-    .directive('changeTab', function ($timeout) {
+    .directive('changeTab', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attr) {
@@ -11,7 +11,7 @@ angular.module('yes.ui')
                 });
             }
         }
-    })
+    }])
     .directive('boxChangeShowHide', function () {
         return {
             restrict: 'A',
@@ -30,7 +30,7 @@ angular.module('yes.ui')
             }
         }
     })
-    .directive('onDomReady', function ($timeout) {
+    .directive('onDomReady', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attr) {
@@ -74,8 +74,8 @@ angular.module('yes.ui')
                 });
             }
         }
-    })
-    .directive('onFinishRender', function ($timeout) {
+    }])
+    .directive('onFinishRender', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attr) {
@@ -86,8 +86,8 @@ angular.module('yes.ui')
                 }
             }
         }
-    })
-    .directive('onMenuRender', function ($timeout, $stateParams) {
+    }])
+    .directive('onMenuRender', ['$timeout', '$stateParams', function ($timeout, $stateParams) {
         return {
             restrict: 'A',
             link: function (scope, element, attr) {
@@ -132,8 +132,8 @@ angular.module('yes.ui')
                 }
             }
         }
-    })
-    .directive('onSideBarRender', function ($timeout) {
+    }])
+    .directive('onSideBarRender', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attr) {
@@ -149,7 +149,7 @@ angular.module('yes.ui')
                 });
             }
         }
-    })
+    }])
     .directive('includeReplace', function () {
         return {
             require: 'ngInclude',
@@ -160,7 +160,7 @@ angular.module('yes.ui')
             }
         };
     })
-    .directive('searchCommon', function (settings) {
+    .directive('searchCommon', ['settings', function (settings) {
         return {
             restrict: 'EA',
             templateUrl: settings.templates.searchCommon,
@@ -267,5 +267,5 @@ angular.module('yes.ui')
                 }
             ]
         };
-    });
+    }]);
 
