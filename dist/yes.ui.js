@@ -437,12 +437,15 @@ angular.module('yes.ui.list', ['ui.grid', ''])
         }
     });
 angular.module('yes.ui')
-    .directive('yesTreeView', function ($timeout) {
+    .directive('yesTreeView', function ($compile, $templateCache, $http) {
         return {
-            restrict: 'A',
-            link: function (scope, element, attr) {
+            link: function (scope, element, attrs) {
+                $http.get("plugins/base/templates/tree-view.html", {cache: $templateCache})
+                    .success(function (html) {
+                        element.html('').append($compile(html)(scope));
+                    });
             }
-        }
+        };
     });
 angular.module('yes.ui')
     .directive('uploader', function ($timeout) {

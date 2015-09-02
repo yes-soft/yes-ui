@@ -29,23 +29,16 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest(dist));
 });
 
-
-//<script type="text/javascript" src="./../components/yes-bundle/dist/vendor/ui-bootstrap-tpls.js"></script>
-//<script type="text/javascript" src="./../components/yes-bundle/dist/vendor/toaster/angular-toastr.tpls.js"></script>
-//<script type="text/javascript" src="./../components/yes-bundle/dist/vendor/angular-ui-grid/ui-grid.js"></script>
-//<script type="text/javascript" src="./../components/yes-bundle/dist/vendor/tv4.js"></script>
-//<script type="text/javascript" src="./../components/yes-bundle/dist/vendor/ObjectPath.js"></script>
-//<script type="text/javascript" src="./../components/yes-bundle/dist/vendor/schema-form.js"></script>
-//<script type="text/javascript" src="./../components/yes-bundle/dist/vendor/bootstrap-decorator.js"></script>
-
 gulp.task('dependencies', function () {
     return gulp.src([
+        'components/yes-bundle/dist/vendor/bootstrap/js/bootstrap.js',
         'components/yes-bundle/dist/vendor/ui-bootstrap-tpls.js',
         'components/yes-bundle/dist/vendor/toaster/angular-toastr.tpls.js',
         'components/yes-bundle/dist/vendor/angular-ui-grid/ui-grid.js',
         'components/yes-bundle/dist/vendor/tv4.js',
         'components/yes-bundle/dist/vendor/ObjectPath.js',
-        'components/yes-bundle/dist/vendor/schema-form.js'
+        'components/yes-bundle/dist/vendor/schema-form.js',
+        'components/yes-bundle/dist/vendor/bootstrap-datepicker.js'
     ])
         .pipe(concat('yes.ui.dependencies.js'))
         .pipe(gulp.dest(dist))
