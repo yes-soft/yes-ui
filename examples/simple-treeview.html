@@ -49,7 +49,6 @@
         </div>
     </div>
 </div>
-
 <script src="../components/yes-bundle/dist/vendor/jquery.min.js"></script>
 <script src="../components/yes-bundle/dist/yes.bundle.min.js" charset="utf-8"></script>
 <script src="../components/yes-utils/dist/yes.utils.js" charset="utf-8"></script>
@@ -85,7 +84,6 @@
                     link: function (scope, element, attrs) {
                         $http.get("plugins/base/templates/tree-view.html", {cache: $templateCache})
                                 .success(function (html) {
-
                                     scope.selectChanged = scope.selectChanged || function (node) {
                                                 walkChildren(node.subMenus, node.selected);
                                                 walkParent(node, node.selected);
