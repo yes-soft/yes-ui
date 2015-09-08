@@ -20,7 +20,8 @@ gulp.task('clean', function (cb) {
 gulp.task('scripts', function () {
     return gulp.src([
         'src/index.js',
-        'src/directives/**/*.js'
+        'src/directives/**/*.js',
+        'src/filters/**/*.js'
     ])
         .pipe(concat('yes.ui.js'))
         .pipe(gulp.dest(dist))

@@ -1,7 +1,7 @@
-(function (angular) {
+(function () {
     'use strict';
     angular.module('yes.ui')
-        .directive('importUploader', ['$location', 'utils', 'settings', 'FileUploader',
+        .directive('yesFileUploader', ['$location', 'utils', 'settings', 'FileUploader',
             function ($location, utils, settings, FileUploader) {
                 return {
                     restrict: 'EA',
@@ -42,4 +42,4 @@
                         }]
                 };
             }]);
-})(angular);
+})();

@@ -1,4 +1,4 @@
-(function () {
+(function (angular) {
     'use strict';
     angular.module('yes.ui')
         .directive('uploaderContainer', ['$location', 'utils', 'settings',
@@ -34,4 +34,4 @@
                         }]
                 };
             }]);
-})();
+})(angular);
