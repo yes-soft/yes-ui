@@ -115,9 +115,16 @@
                                     } else {
                                         if ($self.hasClass("last-menu")) {
                                             $self.addClass("active").siblings().removeClass('active');
+                                            if($('.active').parent().parent().prevAll().hasClass("open")){
+                                            	$('.active').parent().parent().prevAll().removeClass("open");
+                                            }
+                                            if($('.active').parent().parent().nextAll().hasClass("open")){
+                                            	$('.active').parent().parent().nextAll().removeClass("open");
+                                            }
                                         } else {
                                             $self.addClass("active").siblings().removeClass('active');
                                             $('.last-menu').removeClass('active');
+                                            $('.last-menu').parent().parent().removeClass('open');
                                         }
                                     }
 
