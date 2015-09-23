@@ -1,0 +1,8 @@
+<div class="pagination" style="margin-top: -50px;">
+                <span class="perpage">每页显示<input type="text" ng-model="gridOptions.paginationPageSize"
+                                                 class="items">条</span>
+    <span class="pages">总计<span class="totalItems">{{gridOptions.totalItems}}</span>条</span>
+    <button class="prepage btn" ng-click="gridApi.pagination.previousPage()">上一页</button>
+    <a class="currentpage page" href="">{{gridApi.pagination.getPage()}}</a>
+    <button class="nextpage btn" ng-click="gridApi.pagination.nextPage()">下一页</button>
+</div>
