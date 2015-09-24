@@ -107,7 +107,7 @@
                                     var $self = angular.element(this);
                                     if ($self.hasClass("last-menu")) {
                                         $self.parents('li').siblings().removeClass("active");
-                                        $('.last-menu').not(this).removeClass('active');
+                                        element.find('.last-menu').not(this).removeClass('active');
                                     }
 
                                     if ($self.children().children().hasClass('last-menu')) {
@@ -115,16 +115,20 @@
                                     } else {
                                         if ($self.hasClass("last-menu")) {
                                             $self.addClass("active").siblings().removeClass('active');
-                                            if($('.active').parent().parent().prevAll().hasClass("open")){
-                                            	$('.active').parent().parent().prevAll().removeClass("open");
+
+                                            var $active = element.find('.active');
+                                            if ($active.parent().parent().prevAll().hasClass("open")) {
+                                                $active.parent().parent().prevAll().removeClass("open");
                                             }
-                                            if($('.active').parent().parent().nextAll().hasClass("open")){
-                                            	$('.active').parent().parent().nextAll().removeClass("open");
+                                            if ($active.parent().parent().nextAll().hasClass("open")) {
+                                                $active.parent().parent().nextAll().removeClass("open");
                                             }
+
                                         } else {
+                                            var $lastMenu = element.find('.last-menu');
                                             $self.addClass("active").siblings().removeClass('active');
-                                            $('.last-menu').removeClass('active');
-                                            $('.last-menu').parent().parent().removeClass('open');
+                                            $lastMenu.removeClass('active');
+                                            $lastMenu.parent().parent().removeClass('open');
                                         }
                                     }
 

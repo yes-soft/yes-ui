@@ -34,14 +34,66 @@
                                 self.currentPage = Math.max(self.currentPage - 1, 1);
                             },
                             seek: function (page) {
-                                if (!angular.isNumber(page) || page < 1) {
-                                    throw 'Invalid page number: ' + page;
+                                if (page == "...") {
+
+                                } else if (!angular.isNumber(page) || page < 1) {
+
+                                } else {
+                                    self.currentPage = Math.min(page, self.getTotalPages());
                                 }
-                                self.currentPage = Math.min(self.getTotalPages());
                             }
                         });
 
+                        self.pagesLength = self.pagesLength || 10;
+
                         scope.pagination = self;
+
+                        var renderNumbers = function () {
+                            self.numbers = [];
+                            var i = 0;
+                            var totalPages = self.getTotalPages();
+
+                            if (self.currentPage > totalPages)
+                                self.currentPage = totalPages;
+                            if (totalPages <= self.pagesLength) {
+                                for (i = 1; i <= totalPages; i++) {
+                                    self.numbers.push(i);
+                                }
+                            } else {
+                                var offset = Math.ceil((self.pagesLength - 1) / 2);
+
+                                if (self.currentPage <= offset) {
+                                    for (i = 1; i <= offset + 1; i++) {
+                                        self.numbers.push(i);
+                                    }
+                                    self.numbers.push('...');
+                                    self.numbers.push(totalPages);
+                                } else if (self.currentPage > totalPages - offset) {
+                                    self.numbers.push(1);
+                                    self.numbers.push('...');
+                                    for (i = offset + 1; i >= 1; i--) {
+                                        self.numbers.push(totalPages - i);
+                                    }
+                                    self.numbers.push(totalPages);
+                                } else {
+                                    self.numbers.push(1);
+                                    self.numbers.push('...');
+                                    for (i = Math.ceil(offset / 2); i >= 1; i--) {
+                                        self.numbers.push(self.currentPage - i);
+                                    }
+                                    self.numbers.push(self.currentPage);
+                                    for (i = 1; i <= offset / 2; i++) {
+                                        self.numbers.push(self.currentPage + i);
+                                    }
+                                    self.numbers.push('...');
+                                    self.numbers.push(totalPages);
+                                }
+                            }
+                        };
+
+                        scope.$watch('pagination.currentPage', renderNumbers);
+                        scope.$watch('pagination.totalItems', renderNumbers);
+                        scope.$watch('pagination.pageSize', renderNumbers);
 
                         self.cantPageForward = function () {
                             if (self.totalItems > 0) {
