@@ -48,7 +48,7 @@
 
                         scope.pagination = self;
 
-                        var renderNumbers = function () {
+                        function renderNumbers() {
                             self.numbers = [];
                             var i = 0;
                             var totalPages = self.getTotalPages();
@@ -89,9 +89,16 @@
                                     self.numbers.push(totalPages);
                                 }
                             }
-                        };
+                        }
 
-                        scope.$watch('pagination.currentPage', renderNumbers);
+                        function currentPageChanged() {
+                            renderNumbers();
+                            if (angular.isNumber(self.currentPage)
+                                && angular.isFunction(self.onPageChange))
+                                self.onPageChange(self.currentPage);
+                        }
+
+                        scope.$watch('pagination.currentPage', currentPageChanged);
                         scope.$watch('pagination.totalItems', renderNumbers);
                         scope.$watch('pagination.pageSize', renderNumbers);
 
@@ -102,7 +109,6 @@
                                 return self.data.length < 1;
                             }
                         };
-
                         self.cantPageToLast = function () {
                             if (self.totalItems > 0) {
                                 return $scope.cantPageForward();
@@ -110,7 +116,6 @@
                                 return true;
                             }
                         };
-
                         self.cantPageBackward = function () {
                             return self.currentPage <= 1;
                         };

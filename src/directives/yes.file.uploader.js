@@ -32,10 +32,8 @@
                             });
 
                             uploader.onSuccessItem = function (item, res, status, headers) {
-                                if (angular.isArray(res.message))
-                                    $scope.message = res.message.split("<br>");
-                                else
-                                    $scope.message = res.message;
+                                $scope.message = res.message.split("<br>");
+
                                 if (angular.isFunction(options.resolve)) {
                                     var context = {'scope': $scope};
                                     context.res = res;
