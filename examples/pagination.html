@@ -16,7 +16,7 @@
         <ul ng-repeat="menu in entries">
             <li>{{menu.name}}</li>
         </ul>
-
+        <div ng-bind-html="testHtml"></div>
         <div yes-pagination="pagination"></div>
     </div>
 </div>
@@ -51,6 +51,8 @@
 
                     }
                 };
+
+                $scope.testHtml = "tett<br/>sts<br />";
 
                 $http.get('./data/menus.json').success(function (res) {
                     // $scope.entries = res.body.items;
