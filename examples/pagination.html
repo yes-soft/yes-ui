@@ -13,10 +13,6 @@
 
 <div class="container" style="padding-top: 50px;">
     <div ng-controller="demo">
-        <ul ng-repeat="menu in entries">
-            <li>{{menu.name}}</li>
-        </ul>
-        <div ng-bind-html="testHtml"></div>
         <div yes-pagination="pagination"></div>
     </div>
 </div>
@@ -47,6 +43,7 @@
                     data: 'entries',
                     perPages: [10, 20, 100, 1000, 5000],
                     pageSize: 20,
+                    pagesLength:10,
                     onPageChange: function () {
 
                     }

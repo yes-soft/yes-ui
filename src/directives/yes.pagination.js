@@ -44,7 +44,9 @@
                             }
                         });
 
-                        self.pagesLength = self.pagesLength || 10;
+                        self.pagesLength = self.pagesLength * 2 || 10;
+
+                        console.log(self.pagesLength);
 
                         scope.pagination = self;
 
@@ -60,7 +62,7 @@
                                     self.numbers.push(i);
                                 }
                             } else {
-                                var offset = Math.ceil((self.pagesLength - 1) / 2);
+                                var offset = Math.floor((self.pagesLength - 1) / 2);
 
                                 if (self.currentPage <= offset) {
                                     for (i = 1; i <= offset + 1; i++) {
@@ -78,7 +80,7 @@
                                 } else {
                                     self.numbers.push(1);
                                     self.numbers.push('...');
-                                    for (i = Math.ceil(offset / 2); i >= 1; i--) {
+                                    for (i = Math.floor(offset / 2); i >= 1; i--) {
                                         self.numbers.push(self.currentPage - i);
                                     }
                                     self.numbers.push(self.currentPage);
