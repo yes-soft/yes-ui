@@ -46,7 +46,6 @@
 
                         self.pagesLength = self.pagesLength * 2 || 10;
 
-                        console.log(self.pagesLength);
 
                         scope.pagination = self;
 
