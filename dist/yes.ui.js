@@ -556,7 +556,8 @@
 
                         self.pagesLength = self.pagesLength * 2 || 10;
 
-                        console.log(self.pagesLength);
+                        var initiated = false;
+
 
                         scope.pagination = self;
 
@@ -605,9 +606,10 @@
 
                         function currentPageChanged() {
                             renderNumbers();
-                            if (angular.isNumber(self.currentPage)
+                            if (initiated && angular.isNumber(self.currentPage)
                                 && angular.isFunction(self.onPageChange))
                                 self.onPageChange(self.currentPage);
+                            initiated = true;
                         }
 
                         scope.$watch('pagination.currentPage', currentPageChanged);
